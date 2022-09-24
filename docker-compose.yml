@@ -1,0 +1,12 @@
+version : '3'
+## Defining the containers
+services:
+  ## The first container is the CUDF container
+  cudf_docker:
+    build : 
+      context : .
+      dockerfile : Dockerfile
+    ports: 
+      - "8888:8888"
+    volumes:
+      - /mnt/d/Dataset:/usr/app/Data
