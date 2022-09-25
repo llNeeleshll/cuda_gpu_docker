@@ -6,10 +6,10 @@ RUN apt-get update -y
 RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo #CONTAINER_TIME > /etc/timezone
 ENV DEBIAN_FRONTEND=noninteractive
 
-# RUN consta install libgcc
-
-RUN pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+WORKDIR /usr/app
 
 COPY ./ ./
+
+RUN pip install -r requirments.txt
 
 CMD ["jupyter-lab --allow-root --no-browser --ip=0.0.0.0 --port=8888 --NotebookApp.token='' --NotebookApp.password=''"]

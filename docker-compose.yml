@@ -3,10 +3,23 @@ version : '3'
 services:
   ## The first container is the CUDF container
   cudf_docker:
-    build : 
-      context : .
-      dockerfile : Dockerfile
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     ports: 
       - "8888:8888"
     volumes:
       - /mnt/d/Dataset:/usr/app/Data
+      - ./code_block:/usr/app/code_block
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+    container_name: cudf_docker
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    
